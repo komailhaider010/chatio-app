@@ -22,7 +22,8 @@ export const UserChats = ({fetchAgain}) => {
       };
 
       const { data } = await axios.get("/api/chat", config);
-      setchats(data);
+      const sortedData = data.sort((a, b) => b.updatedAt - a.updatedAt);
+      setchats(sortedData);
     } catch (error) {
       toast({
         title: error.response.data.message,
