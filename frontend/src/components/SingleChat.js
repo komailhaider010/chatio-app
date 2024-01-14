@@ -26,7 +26,7 @@ var socket, selectedChatCompare;
 export const SingleChat = ({ fetchAgain, setfetchAgain }) => {
   const toast = useToast();
   const token = localStorage.getItem("token");
-  const { user, selectedChat, setselectedChat, notifications, setnotifications} = ChatState();
+  const { user, selectedChat, setselectedChat, notifications, setnotifications, chats, setchats} = ChatState();
   const [allmessages, setallmessages] = useState([]);
   const [loading, setloading] = useState(false);
   const [newMessage, setnewMessage] = useState();
@@ -113,6 +113,7 @@ export const SingleChat = ({ fetchAgain, setfetchAgain }) => {
 
         socket.emit("new message", data);
         setallmessages([...allmessages, data]);
+        setchats([selectedChat, ...chats.filter(chat => chat !== selectedChat)]);
       } catch (error) {
         console.log(error);
         toast({
