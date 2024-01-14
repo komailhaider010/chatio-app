@@ -24,7 +24,6 @@ export const UserChats = ({fetchAgain}) => {
       const { data } = await axios.get("/api/chat", config);
       setchats(data);
     } catch (error) {
-      console.log(error);
       toast({
         title: error.response.data.message,
         discription: "Failed to search Results",
