@@ -93,6 +93,7 @@ export const SingleChat = ({ fetchAgain, setfetchAgain }) => {
   const sendMessage = async (event) => {
     if (event.key === "Enter" && newMessage) {
       socket.emit("stop typing", selectedChat._id);
+      setchats([selectedChat, ...chats.filter(chat => chat !== selectedChat)]);
       try {
         const config = {
           headers: {
@@ -113,7 +114,6 @@ export const SingleChat = ({ fetchAgain, setfetchAgain }) => {
 
         socket.emit("new message", data);
         setallmessages([...allmessages, data]);
-        setchats([selectedChat, ...chats.filter(chat => chat !== selectedChat)]);
       } catch (error) {
         console.log(error);
         toast({
